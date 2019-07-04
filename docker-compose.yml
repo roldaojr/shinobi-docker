@@ -10,7 +10,7 @@ services:
       MYSQL_USER: "${MYSQL_USER}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
     volumes:
-      - shinobi_mysql:/var/lib/mysql
+      - ./mysql:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u$MYSQL_USER", "-p$MYSQL_PASSWORD"]
       timeout: 20s

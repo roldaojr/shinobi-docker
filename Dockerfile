@@ -1,7 +1,7 @@
 FROM node:8-alpine 
 
-ENV SHINOBI_SHA="1763353e00a4e374d35f2c7cfd6646714abe209b"
-ENV SHINOBI_BRANCH="dev"
+ENV SHINOBI_SHA="8355476a16c8379060dde48068c818a278ee63c9"
+ENV SHINOBI_BRANCH="master"
 
 # Set environment variables to default values
 # ADMIN_USER : the super user login name
