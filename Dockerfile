@@ -1,4 +1,4 @@
-FROM node:8-alpine 
+FROM node:12-alpine
 
 ENV SHINOBI_SHA="c4d5b7833982739693822861ea5d27957bc9d32b"
 ENV SHINOBI_BRANCH="master"
@@ -9,14 +9,13 @@ ENV SHINOBI_BRANCH="master"
 # PLUGINKEY_MOTION : motion plugin connection key
 # PLUGINKEY_OPENCV : opencv plugin connection key
 # PLUGINKEY_OPENALPR : openalpr plugin connection key
-ENV ADMIN_USER=admin@shinobi.video \
-    ADMIN_PASSWORD=admin \
-    CRON_KEY=fd6c7849-904d-47ea-922b-5143358ba0de \
-    PLUGINKEY_MOTION=b7502fd9-506c-4dda-9b56-8e699a6bc41c \
-    PLUGINKEY_OPENCV=f078bcfe-c39a-4eb5-bd52-9382ca828e8a \
-    PLUGINKEY_OPENALPR=dbff574e-9d4a-44c1-b578-3dc0f1944a3c
-
-
+ENV DB_USER=majesticflame \
+    DB_PASSWORD='' \
+    DB_HOST='localhost' \
+    DB_DATABASE=ccio \
+    SUBSCRIPTION_ID=sub_XXXXXXXXXXXX \
+    PLUGIN_KEYS='{}'
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apk --update update && apk upgrade --no-cache
 
@@ -67,8 +66,8 @@ RUN apk add --virtual .build-dependencies --no-cache \
  && apk del .build-dependencies
 
 # Copy code
-COPY docker-entrypoint.sh pm2Shinobi.yml conf.sample.json super.sample.json /opt/shinobi/
-RUN chmod +x /opt/shinobi/docker-entrypoint.sh
+COPY docker-entrypoint.sh pm2Shinobi.yml /opt/shinobi/
+RUN chmod -f +x /opt/shinobi/docker-entrypoint.sh
 
 EXPOSE 8080
 

@@ -27,17 +27,18 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - ./config:/config
       - ./videos:/opt/shinobi/videos
+      - ./plugins:/opt/shinobi/plugins
+      - ./customAutoLoad:/customAutoLoad
       - /dev/shm/shinobiDockerTemp:/dev/shm/streams
     ports:
       - "${SHINOBI_PORT:-8080}:8080"
     environment:
-      MYSQL_HOST: "mysql"
-      MYSQL_DATABASE: "${MYSQL_DATABASE}"
-      MYSQL_USER: "${MYSQL_USER}"
-      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      DB_HOST: "mysql"
+      DB_DATABASE: "${MYSQL_DATABASE}"
+      DB_USER: "${MYSQL_USER}"
+      DB_PASSWORD: "${MYSQL_PASSWORD}"
+      DB_PORT: 3306
       ADMIN_USER: "${ADMIN_USER}"
       ADMIN_PASSWORD: "${ADMIN_PASSWORD}"
       utcOffset: "${utcOffset}"
 
-volumes:
-  shinobi_mysql: {}
