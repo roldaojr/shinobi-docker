@@ -1,6 +1,6 @@
 FROM node:8-alpine 
 
-ENV SHINOBI_SHA="8355476a16c8379060dde48068c818a278ee63c9"
+ENV SHINOBI_SHA="c4d5b7833982739693822861ea5d27957bc9d32b"
 ENV SHINOBI_BRANCH="master"
 
 # Set environment variables to default values
@@ -64,7 +64,7 @@ RUN apk add --virtual .build-dependencies --no-cache \
  && npm i npm@latest -g \
  && npm install pm2 -g \
  && npm install \
- && apk del --virtual .build-dependencies 
+ && apk del .build-dependencies
 
 # Copy code
 COPY docker-entrypoint.sh pm2Shinobi.yml conf.sample.json super.sample.json /opt/shinobi/
@@ -73,6 +73,11 @@ RUN chmod +x /opt/shinobi/docker-entrypoint.sh
 EXPOSE 8080
 
 WORKDIR /opt/shinobi
+
+VOLUME ["/opt/shinobi/videos"]
+VOLUME ["/opt/shinobi/plugins"]
+VOLUME ["/config"]
+VOLUME ["/customAutoLoad"]
 
 ENTRYPOINT ["/opt/shinobi/docker-entrypoint.sh"]
 
